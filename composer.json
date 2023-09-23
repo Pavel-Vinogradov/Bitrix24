@@ -1,0 +1,38 @@
+{
+  "name": "tizix/birix24-sdk-laravel",
+  "description": "Basic components of laravel",
+  "type": "laravel-sdk-for-laravel",
+  "require": {
+    "php": "^8.1",
+    "mesilov/bitrix24-php-sdk": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.3",
+    "orchestra/testbench": "^8.10",
+    "phpstan/phpstan": "^1.10",
+    "friendsofphp/php-cs-fixer": "^3.26",
+    "laravel/pint": "^1.13"
+  },
+  "license": "GPL-3.0-only",
+  "autoload": {
+    "classmap": [
+      "src/"
+    ],
+    "psr-4": {
+      "Tizix\\Bitrix24Laravel\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tizix\\Bitrix24Laravel\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel":{
+      "providers": [
+        "Tizix\\Bitrix24Laravel\\Providers\\Bitrix24Provider"
+      ]
+    }
+  },
+  "minimum-stability": "dev"
+}
