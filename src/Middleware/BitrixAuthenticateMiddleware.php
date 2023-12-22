@@ -29,7 +29,7 @@ final class BitrixAuthenticateMiddleware
     /**
      * @throws AuthenticationException
      */
-    private function unauthenticated(Request $request): void
+    private function unauthenticated(): void
     {
         throw new AuthenticationException('Не аутентифицированный пользователь');
     }

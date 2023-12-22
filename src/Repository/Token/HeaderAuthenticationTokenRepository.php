@@ -15,9 +15,9 @@ final class HeaderAuthenticationTokenRepository implements AuthenticationTokenRe
 
     private Request $request;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->request = new Request();
+        $this->request = $request;
     }
 
     public function getAccessToken(): ?string
