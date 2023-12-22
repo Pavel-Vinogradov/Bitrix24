@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -10,11 +12,12 @@ return new class () extends Migration {
     {
         DB::statement('CREATE SCHEMA IF NOT EXISTS "util";');
 
-        Schema::create('util.logs', function (Blueprint $table) {
+        Schema::create('util.model_change_log', static function (Blueprint $table): void {
             $table->id();
             $table->integer('user_id')->nullable();
             $table->string('model_class')->nullable();
             $table->integer('model_id')->nullable();
+            $table->string('action')->nullable();
             $table->text('previous_value');
             $table->text('new_value');
             $table->timestamps();
@@ -24,6 +27,6 @@ return new class () extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('util.logs');
+        Schema::dropIfExists('util.model_change_log');
     }
 };

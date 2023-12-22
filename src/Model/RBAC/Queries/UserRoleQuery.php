@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tizix\Bitrix24Laravel\Model\RBAC\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class UserRoleQuery extends Builder
+final class UserRoleQuery extends Builder
 {
     public function byUserId($userId): UserRoleQuery
     {

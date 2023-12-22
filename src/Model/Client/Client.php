@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tizix\Bitrix24Laravel\Model\Client;
 
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +16,8 @@ use Tizix\Bitrix24Laravel\Model\Client\Queries\ClientQuery;
 final class Client extends Model
 {
     protected $table = 'client.clients';
+
+    public $timestamps = false;
 
     protected $fillable = [
         'name',

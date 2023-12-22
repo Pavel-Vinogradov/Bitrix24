@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tizix\Bitrix24Laravel\Model\RBAC;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Tizix\Bitrix24Laravel\Model\RBAC\Queries\RoleQuery;
 use Tizix\Bitrix24Laravel\Model\User\User;
 
 /**
@@ -14,6 +17,8 @@ use Tizix\Bitrix24Laravel\Model\User\User;
 final class Role extends Model
 {
     protected $table = 'rbac.roles';
+
+    public $timestamps = false;
 
     protected $fillable = [
         'key',
@@ -37,11 +42,16 @@ final class Role extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'rbac.user_role', 'permission_id', 'role_id');
+        return $this->belongsToMany(User::class, 'rbac.user_role', 'role_id', 'user_id');
     }
 
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'rbac.role_permission', 'role_id', 'permission_id');
+    }
+
+    public function newEloquentBuilder($query): RoleQuery
+    {
+        return new RoleQuery($query);
     }
 }
