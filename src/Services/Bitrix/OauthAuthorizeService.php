@@ -32,7 +32,7 @@ final class OauthAuthorizeService
             'http_errors' => false,
         ]);
         $json = $response->json() ?: '[]';
-        $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+        $data = $json;
         if ($error = $data['error'] ?? null) {
             Log::error("Ошибка обновления токенов доступа: {$error}");
             throw new \RuntimeException("Необработанная ошибка обновления токенов доступа: {$error}");
