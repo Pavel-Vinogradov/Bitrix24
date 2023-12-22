@@ -9,7 +9,7 @@ use Tizix\Bitrix24Laravel\Console\Commands\AuthCommand;
 use Tizix\Bitrix24Laravel\Console\Commands\RbacCommand;
 use Tizix\Bitrix24Laravel\Repository\Authentication\AuthenticationRepository;
 use Tizix\Bitrix24Laravel\Repository\Token\AuthenticationTokenRepositoryInterface;
-use Tizix\Bitrix24Laravel\Repository\Token\JsonAuthenticationTokenRepository;
+use Tizix\Bitrix24Laravel\Repository\Token\HeaderAuthenticationTokenRepository;
 use Tizix\Bitrix24Laravel\Repository\User\UserDataRepository;
 use Tizix\Bitrix24Laravel\Repository\User\UserDataRepositoryInterface;
 use Tizix\Bitrix24Laravel\Repository\User\UserRoleRepository;
@@ -25,7 +25,7 @@ final class BitrixServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind(AuthenticationTokenRepositoryInterface::class, JsonAuthenticationTokenRepository::class);
+        $this->app->bind(AuthenticationTokenRepositoryInterface::class, HeaderAuthenticationTokenRepository::class);
         $this->app->bind(OAuthServiceInterface::class, BitrixOAuthService::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(AuthenticationRepository::class, AuthenticationRepository::class);

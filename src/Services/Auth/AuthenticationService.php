@@ -17,6 +17,7 @@ use Tizix\Bitrix24Laravel\Services\Oauth\OAuthServiceInterface;
 use Tizix\Bitrix24Laravel\Services\User\UserServiceInterface;
 
 
+
 final class AuthenticationService implements AuthenticationServiceInterface
 {
     private AuthenticationRepository $authenticationRepository;
@@ -28,11 +29,12 @@ final class AuthenticationService implements AuthenticationServiceInterface
     private UserServiceInterface $userService;
 
     public function __construct(
-        AuthenticationRepository $authenticationRepository,
+        AuthenticationRepository               $authenticationRepository,
         AuthenticationTokenRepositoryInterface $authenticationTokenRepository,
-        OAuthServiceInterface $OAuthService,
-        UserServiceInterface $userService
-    ) {
+        OAuthServiceInterface                  $OAuthService,
+        UserServiceInterface                   $userService
+    )
+    {
         $this->authenticationRepository = $authenticationRepository;
         $this->authenticationTokenRepository = $authenticationTokenRepository;
         $this->OAuthService = $OAuthService;
@@ -44,7 +46,7 @@ final class AuthenticationService implements AuthenticationServiceInterface
      */
     public function login(?AccessTokenData $accessTokenData): ?User
     {
-        if (! $accessTokenData) {
+        if (!$accessTokenData) {
             throw new RuntimeException('Отсутствуют данные для авторизации');
         }
         $result = $this->authenticationTokenRepository->setRefreshToken($accessTokenData->getRefreshToken());
@@ -52,10 +54,9 @@ final class AuthenticationService implements AuthenticationServiceInterface
             throw new UnauthenticatedException('Ошибка авторизации');
         }
         $userData = $this->OAuthService->getCurrentUserData();
-        if (! $userData) {
+        if (!$userData) {
             throw new RuntimeException('Ошибка получения данных пользователя');
         }
-
         $user = $this->userService->getOrCreate($userData->getId());
         $accessToken = $this->createAccessTokenModel($user, $accessTokenData->getAccessToken());
         $refreshToken = $this->createRefreshTokenModel($user, $accessToken, $accessTokenData->getRefreshToken());
@@ -68,7 +69,7 @@ final class AuthenticationService implements AuthenticationServiceInterface
      */
     public function getCurrentUser(): ?User
     {
-        return $this->getAccessToken()->getUser();
+        return $this->getAccessToken()->users;
     }
 
     /**
@@ -111,15 +112,21 @@ final class AuthenticationService implements AuthenticationServiceInterface
      */
     private function getAccessToken(): AccessToken
     {
-        $accessTokenModel = $this->authenticationRepository
+        $getAccessTokenModel = fn()=> $this->authenticationRepository
             ->getAccessToken($this->authenticationTokenRepository->getAccessToken());
 
-        if (null === $accessTokenModel) {
-            throw new UnauthenticatedException();
+        $accessTokenModel = $getAccessTokenModel();
+        if ($accessTokenModel) {
+            return $accessTokenModel;
         }
+
 
         $refreshToken = $this->authenticationTokenRepository->getRefreshToken();
         if ($this->refresh($refreshToken)) {
+            throw new UnauthenticatedException();
+        }
+        $accessTokenModel = $getAccessTokenModel();
+        if (!$accessTokenModel) {
             throw new UnauthenticatedException();
         }
 

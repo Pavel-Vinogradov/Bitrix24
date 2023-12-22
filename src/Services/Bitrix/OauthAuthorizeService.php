@@ -38,8 +38,6 @@ final class OauthAuthorizeService
             throw new \RuntimeException("Необработанная ошибка обновления токенов доступа: {$error}");
         }
 
-        self::saveOauthToken($data);
-
         return new AccessTokenData(
             accessToken: $data['access_token'],
             refreshToken: $data['refresh_token'],
