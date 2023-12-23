@@ -26,8 +26,6 @@ final class BitrixServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind(AuthenticationTokenRepositoryInterface::class, HeaderAuthenticationTokenRepository::class);
-        $this->app->bind(AuthenticationTokenRepositoryInterface::class, JsonAuthenticationTokenRepository::class);
         $this->app->bind(OAuthServiceInterface::class, BitrixOAuthService::class);
         $this->app->bind(UserServiceInterface::class, UserService::class);
         $this->app->bind(AuthenticationRepository::class, AuthenticationRepository::class);
