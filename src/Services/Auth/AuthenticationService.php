@@ -104,9 +104,9 @@ final class AuthenticationService implements AuthenticationServiceInterface
     /**
      * @throws Exception
      */
-    private function createRefreshTokenModel(?User $user, ?AccessToken $accessToken, string $getRefreshToken): ?RefreshToken
+    private function createRefreshTokenModel(?User $user, ?AccessToken $accessToken, string $getRefreshToken): void
     {
-        return $this->authenticationRepository->createRefreshToken($user, $accessToken, $getRefreshToken);
+        $this->authenticationRepository->createRefreshToken($user, $accessToken, $getRefreshToken);
     }
 
     /**
