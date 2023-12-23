@@ -34,6 +34,8 @@ final class BitrixServiceProvider extends ServiceProvider
         $this->app->bind(AuthenticationServiceInterface::class, AuthenticationService::class);
         $this->app->bind(UserDataRepositoryInterface::class, UserDataRepository::class);
         $this->app->bind(UserRoleRepositoryInterface::class, UserRoleRepository::class);
+        $this->app->bind(AuthenticationTokenRepositoryInterface::class, JsonAuthenticationTokenRepository::class);
+
         $this->commands(
             [
                 AuthCommand::class,
