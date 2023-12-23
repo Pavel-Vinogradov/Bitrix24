@@ -10,7 +10,7 @@ use Tizix\Bitrix24Laravel\Services\Auth\AuthenticationServiceInterface;
 
 final class AuthCommand extends Command
 {
-    protected $signature = 'regen auth';
+    protected $signature = 'regen:auth';
 
     protected $description = 'Refreshes and saves authentication token';
 
