@@ -46,17 +46,23 @@ final class AuthenticationService implements AuthenticationServiceInterface
         if (!$accessTokenData) {
             throw new RuntimeException('Отсутствуют данные для авторизации');
         }
+        $result = $this->authenticationTokenRepository->setAccessToken($accessTokenData->getAccessToken());
+
+        if (empty($result)) {
+            throw new UnauthenticatedException('Ошибка авторизации');
+        }
         $result = $this->authenticationTokenRepository->setRefreshToken($accessTokenData->getRefreshToken());
         if (empty($result)) {
             throw new UnauthenticatedException('Ошибка авторизации');
         }
         $userData = $this->OAuthService->getCurrentUserData();
+
         if (!$userData) {
             throw new RuntimeException('Ошибка получения данных пользователя');
         }
         $user = $this->userService->getOrCreate($userData->getId());
         $accessToken = $this->createAccessTokenModel($user, $accessTokenData->getAccessToken());
-        $refreshToken = $this->createRefreshTokenModel($user, $accessToken, $accessTokenData->getRefreshToken());
+        $this->createRefreshTokenModel($user, $accessToken, $accessTokenData->getRefreshToken());
 
         return $user;
     }
