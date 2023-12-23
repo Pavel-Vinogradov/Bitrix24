@@ -16,7 +16,7 @@ use Tizix\Bitrix24Laravel\Model\User\User;
  * @property string $access_token
  * @property Carbon|string $expires_at
  * @property Carbon|string $created_at
- * @property User $user
+ * @property User $users
  */
 class AccessToken extends Model
 {
@@ -31,9 +31,9 @@ class AccessToken extends Model
         'created_at'
     ];
 
-    public function getUser()
+    public function getUser(): User
     {
-        return User::findOne($this->getUserId());
+        return User::find($this->getUserId());
     }
 
     protected function serializeDate($date): bool|int|string

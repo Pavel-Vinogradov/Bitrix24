@@ -16,8 +16,6 @@ use Tizix\Bitrix24Laravel\Repository\Token\AuthenticationTokenRepositoryInterfac
 use Tizix\Bitrix24Laravel\Services\Oauth\OAuthServiceInterface;
 use Tizix\Bitrix24Laravel\Services\User\UserServiceInterface;
 
-
-
 final class AuthenticationService implements AuthenticationServiceInterface
 {
     private AuthenticationRepository $authenticationRepository;
@@ -33,8 +31,7 @@ final class AuthenticationService implements AuthenticationServiceInterface
         AuthenticationTokenRepositoryInterface $authenticationTokenRepository,
         OAuthServiceInterface                  $OAuthService,
         UserServiceInterface                   $userService
-    )
-    {
+    ) {
         $this->authenticationRepository = $authenticationRepository;
         $this->authenticationTokenRepository = $authenticationTokenRepository;
         $this->OAuthService = $OAuthService;
@@ -112,7 +109,7 @@ final class AuthenticationService implements AuthenticationServiceInterface
      */
     private function getAccessToken(): AccessToken
     {
-        $getAccessTokenModel = fn()=> $this->authenticationRepository
+        $getAccessTokenModel = fn () => $this->authenticationRepository
             ->getAccessToken($this->authenticationTokenRepository->getAccessToken());
 
         $accessTokenModel = $getAccessTokenModel();
