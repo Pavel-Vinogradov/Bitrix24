@@ -43,7 +43,7 @@ class AccessToken extends Model
 
     public function users(): HasOne
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class,'id','user_id');
     }
 
     public function getId(): int
