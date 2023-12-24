@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Tizix\Bitrix24Laravel\Credentials\AccessTokenData;
 use Tizix\Bitrix24Laravel\Exception\UndefinedOauthDataException;
+use RuntimeException;
 
 final class OauthAuthorizeService
 {
@@ -33,7 +34,7 @@ final class OauthAuthorizeService
         $data = $json;
         if ($error = $data['error'] ?? null) {
             Log::error("Ошибка обновления токенов доступа: {$error}");
-            throw new \RuntimeException("Необработанная ошибка обновления токенов доступа: {$error}");
+            throw new RuntimeException("Необработанная ошибка обновления токенов доступа: {$error}");
         }
 
         return new AccessTokenData(
