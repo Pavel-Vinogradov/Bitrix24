@@ -26,7 +26,7 @@ final class OauthAuthorizeService
             'client_id' => config('bitrix24.client_id'),
             'grant_type' => 'refresh_token',
             'client_secret' => config('bitrix24.client_secret'),
-            'token' => $token,
+            'refresh_token' => $token,
             'http_errors' => false,
         ]);
         $json = $response->json() ?: '[]';
