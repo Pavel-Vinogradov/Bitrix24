@@ -19,11 +19,10 @@ final class BitrixRequest
     {
         return self::callApi(static function () use ($endpoint, $params) {
             $response = Http::get(self::getUrl($endpoint), [
-                'query' => $params + [
-                    'auth' => self::getAuthenticationTokenRepository()->getAccessToken()
-                ],
-                'http_errors' => false
-            ]);
+                    'auth' => self::getAuthenticationTokenRepository()->getAccessToken(),
+                    'http_errors' => false
+                ]+$params);
+
             return $response->json();
         });
     }

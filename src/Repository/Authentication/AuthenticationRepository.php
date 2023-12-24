@@ -26,7 +26,10 @@ final class AuthenticationRepository
     {
         return $this->accessToken->byAccessToken($value)->active()->first();
     }
-
+    public function getRefreshToken(?string $value): ?RefreshToken
+    {
+        return $this->refreshToken->byRefreshToken($value)->active()->first();
+    }
     /**
      * @throws Exception
      */

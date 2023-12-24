@@ -85,4 +85,12 @@ class RefreshToken extends Model
     {
         return $this->hasOne(AccessToken::class, 'id', 'access_token_id');
     }
+
+    public function kill(): bool
+    {
+        $this->fill([
+            'expires_at' => Carbon::createFromTimestamp(0),
+        ]);
+        return $this->save() && $this->getAccessToken()->kill();
+    }
 }

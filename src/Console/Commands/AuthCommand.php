@@ -31,7 +31,7 @@ final class AuthCommand extends Command
     public function handle(): void
     {
         $refreshToken = $this->authService->refresh(
-            $this->tokenRepository->getAccessToken()
+            $this->tokenRepository->getRefreshToken()
         );
 
         if ($refreshToken) {
