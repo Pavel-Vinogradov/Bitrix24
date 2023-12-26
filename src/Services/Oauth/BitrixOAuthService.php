@@ -32,7 +32,7 @@ final class BitrixOAuthService implements OAuthServiceInterface
         }
 
         $authenticationTokenPair = OauthAuthorizeService::refreshToken($refreshToken);
-        $refreshTokenModel = $this->repository->getAccessToken($refreshToken);
+        $refreshTokenModel = $this->repository->getRefreshToken($refreshToken);
         if ($refreshTokenModel && ! $refreshTokenModel->kill()) {
             return null;
         }

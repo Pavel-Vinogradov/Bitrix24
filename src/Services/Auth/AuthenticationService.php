@@ -9,7 +9,6 @@ use RuntimeException;
 use Tizix\Bitrix24Laravel\Credentials\AccessTokenData;
 use Tizix\Bitrix24Laravel\Exception\UnauthenticatedException;
 use Tizix\Bitrix24Laravel\Model\Auth\AccessToken;
-use Tizix\Bitrix24Laravel\Model\Auth\RefreshToken;
 use Tizix\Bitrix24Laravel\Model\User\User;
 use Tizix\Bitrix24Laravel\Repository\Authentication\AuthenticationRepository;
 use Tizix\Bitrix24Laravel\Repository\Token\AuthenticationTokenRepositoryInterface;
