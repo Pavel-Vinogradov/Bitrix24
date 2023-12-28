@@ -14,7 +14,7 @@ use Tizix\Bitrix24Laravel\Model\User\User;
  * @property int $id
  * @property int $user_id
  * @property string $refresh_token
- * @property string $access_token_id
+ * @property int $access_token_id
  * @property Carbon|string $expires_at
  * @property Carbon|string $created_at
  */
@@ -56,7 +56,7 @@ class RefreshToken extends Model
         return $this->value;
     }
 
-    public function getAccessTokenId(): string
+    public function getAccessTokenId(): int
     {
         return $this->access_token_id;
     }
