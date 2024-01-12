@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tizix\Bitrix24Laravel\Model\RBAC;
 
 use Illuminate\Database\Eloquent\Model;
+use Tizix\Bitrix24Laravel\Model\RBAC\Queries\RolePermissionQuery;
 
 /**
  * @property int $id
@@ -13,6 +16,8 @@ final class RolePermission extends Model
 {
     protected $table = 'rbac.role_permission';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'role_id',
         'permission_id',
@@ -20,12 +25,12 @@ final class RolePermission extends Model
 
     public function getRole(): Role
     {
-        return Role::find($this->role_id);
+        return Role::find($this->getRoleId());
     }
 
     public function getPermission(): Permission
     {
-        return Permission::find($this->permission_id);
+        return Permission::find($this->getPermissionId());
     }
 
     public function getRoleId(): int
@@ -41,5 +46,10 @@ final class RolePermission extends Model
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function newEloquentBuilder($query): RolePermissionQuery
+    {
+        return new RolePermissionQuery($query);
     }
 }

@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tizix\Bitrix24Laravel\Model\RBAC;
 
 use Illuminate\Database\Eloquent\Model;
+use Tizix\Bitrix24Laravel\Model\RBAC\Queries\UserRoleQuery;
 use Tizix\Bitrix24Laravel\Model\User\User;
 
 /**
@@ -13,6 +16,8 @@ use Tizix\Bitrix24Laravel\Model\User\User;
 final class UserRole extends Model
 {
     protected $table = 'rbac.user_role';
+
+    public $timestamps = false;
 
     protected $fillable = [
         'user_id',
@@ -42,5 +47,11 @@ final class UserRole extends Model
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function newEloquentBuilder($query): UserRoleQuery
+    {
+        return new UserRoleQuery($query);
+
     }
 }

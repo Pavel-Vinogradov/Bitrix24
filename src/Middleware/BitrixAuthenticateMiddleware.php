@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tizix\Bitrix24Laravel\Middleware;
 
 use Closure;
@@ -17,7 +19,7 @@ final class BitrixAuthenticateMiddleware
         $accessToken = $request->header(HeaderEnum::X_ACCESS_TOKEN->value);
         $refreshToken = $request->header(HeaderEnum::X_REFRESH_TOKEN->value);
 
-        if (! $accessToken && ! $refreshToken) {
+        if (!$accessToken && !$refreshToken) {
             $this->unauthenticated($request);
         }
 
@@ -27,7 +29,7 @@ final class BitrixAuthenticateMiddleware
     /**
      * @throws AuthenticationException
      */
-    private function unauthenticated(Request $request): void
+    private function unauthenticated(): void
     {
         throw new AuthenticationException('Не аутентифицированный пользователь');
     }

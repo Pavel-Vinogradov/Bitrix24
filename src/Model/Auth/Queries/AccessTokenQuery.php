@@ -1,18 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tizix\Bitrix24Laravel\Model\Auth\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
+use Tizix\Bitrix24Laravel\Model\Auth\AccessToken;
 
-class AccessTokenQuery extends Builder
+/**@mixin  AccessToken */
+final class AccessTokenQuery extends Builder
 {
-    public function byValue($value): AccessTokenQuery
+    public function byAccessToken($value): AccessTokenQuery
     {
-        return $this->where(['value' => $value]);
+        return $this->where(['access_token' => $value]);
     }
 
     public function active(): AccessTokenQuery
     {
-        return $this->where(['active', '>', date('Y-m-d H:i:s', time())]);
+        return $this->where('expires_at', '>', Carbon::now());
     }
 }

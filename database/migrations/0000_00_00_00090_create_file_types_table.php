@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -11,9 +13,11 @@ return new class () extends Migration {
     {
         DB::statement('CREATE SCHEMA IF NOT EXISTS "file";');
 
-        Schema::create('file.file_types', function (Blueprint $table) {
+        Schema::create('file.file_types', static function (Blueprint $table): void {
             $table->id();
             $table->string('name')->nullable(true);
+            $table->comment('Таблица Типов файлов');
+
         });
         foreach (FileType::cases() as $case) {
             DB::table('file.file_types')->insert([
@@ -25,7 +29,6 @@ return new class () extends Migration {
 
     public function down(): void
     {
-        DB::statement('DROP SCHEMA IF EXISTS "file" CASCADE;');
         Schema::dropIfExists('file.file_types');
     }
 };

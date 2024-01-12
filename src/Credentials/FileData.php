@@ -1,10 +1,12 @@
 <?php
 
-namespace Tizix\Bitrix24Laravel\DTO;
+declare(strict_types=1);
+
+namespace Tizix\Bitrix24Laravel\Credentials;
 
 use Tizix\Bitrix24Laravel\Enum\FileType;
 
-final class FileDTO
+class FileData
 {
     public function __construct(
         private readonly string $path,

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tizix\Bitrix24Laravel\Model\Auth;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Tizix\Bitrix24Laravel\Model\Auth\Queries\AccessTokenQuery;
@@ -10,23 +13,37 @@ use Tizix\Bitrix24Laravel\Model\User\User;
 /**
  * @property int $id
  * @property int $user_id
- * @property string $value
- * @property string $expires_at
- * @property string $created_at
+ * @property string $access_token
+ * @property Carbon|string $expires_at
+ * @property Carbon|string $created_at
+ * @property User $users
  */
-final class AccessToken extends Model
+class AccessToken extends Model
 {
     protected $table = 'auth.access_tokens';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'user_id',
-        'value',
+        'access_token',
         'expires_at',
+        'created_at'
     ];
+
+    public function getUser(): User
+    {
+        return User::find($this->getUserId());
+    }
+
+    protected function serializeDate($date): bool|int|string
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 
     public function users(): HasOne
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class,'id','user_id');
     }
 
     public function getId(): int
@@ -39,9 +56,9 @@ final class AccessToken extends Model
         return $this->user_id;
     }
 
-    public function getValue(): string
+    public function getAccessToken(): string
     {
-        return $this->value;
+        return $this->access_token;
     }
 
     public function getExpiresAt(): string
@@ -57,5 +74,12 @@ final class AccessToken extends Model
     public function newEloquentBuilder($query): AccessTokenQuery
     {
         return new AccessTokenQuery($query);
+    }
+
+    public function kill(): bool
+    {
+        return $this->fill([
+            'expires_at' => Carbon::createFromTimestamp(0),
+        ])->save();
     }
 }

@@ -1,23 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tizix\Bitrix24Laravel\Model\Auth\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
-class RefreshTokenQuery extends Builder
+final class RefreshTokenQuery extends Builder
 {
-    public function byValue($value): RefreshTokenQuery
+    public function byRefreshToken($value): RefreshTokenQuery
     {
-        return $this->where(['value' => $value]);
+        return $this->where(['refresh_token' => $value]);
     }
 
     public function active(): RefreshTokenQuery
     {
-        return $this->where(['active', '>', date('Y-m-d H:i:s', time())]);
+        return $this->where('expires_at', '>', Carbon::now());
     }
 
-    public function byAccessTokenId($value): RefreshTokenQuery
+    public function byAccessTokenId($accessTokenId): RefreshTokenQuery
     {
-        return $this->where(['access_token_id' => $value]);
+        return $this->where(['access_token_id' => $accessTokenId]);
     }
 }
