@@ -1,7 +1,8 @@
 <?php
 
-namespace Tizix\Bitrix24Laravel\Repository\Token;
+declare(strict_types=1);
 
+namespace Tizix\Bitrix24Laravel\Repository\Token;
 
 final class CookieAuthenticationTokenRepository implements AuthenticationTokenRepositoryInterface
 {
@@ -36,7 +37,7 @@ final class CookieAuthenticationTokenRepository implements AuthenticationTokenRe
         $this->removeCookie($name);
 
         setcookie($name, $value, [
-            'expires' => strtotime("+$ttl seconds"),
+            'expires' => strtotime("+{$ttl} seconds"),
             'path' => '/',
             'secure' => true,
             'httponly' => true,
