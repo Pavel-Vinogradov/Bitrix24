@@ -9,6 +9,7 @@ use Exception;
 use Tizix\Bitrix24Laravel\Model\Auth\AccessToken;
 use Tizix\Bitrix24Laravel\Model\Auth\RefreshToken;
 use Tizix\Bitrix24Laravel\Model\User\User;
+use RuntimeException;
 
 final class AuthenticationRepository
 {
@@ -46,7 +47,7 @@ final class AuthenticationRepository
                 'created_at' => Carbon::now()
             ]);
         } catch (Exception $exception) {
-            throw new \RuntimeException('Ошибка сохранения токена доступа '. $exception->getMessage());
+            throw new RuntimeException('Ошибка сохранения токена доступа ' . $exception->getMessage());
         }
     }
 
@@ -67,7 +68,7 @@ final class AuthenticationRepository
                 'created_at' => Carbon::now()
             ]);
         } catch (Exception $exception) {
-            throw new \RuntimeException('Ошибка сохранения токена обновления '. $exception->getMessage());
+            throw new RuntimeException('Ошибка сохранения токена обновления ' . $exception->getMessage());
         }
     }
 }
