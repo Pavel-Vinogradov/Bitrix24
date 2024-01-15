@@ -17,7 +17,7 @@ final class UserQuery extends Builder
 
     public function byName($value): UserQuery
     {
-        return $this->whereFullText('name', $value);
+        return $this->whereFullText('name', $value, ['language' => 'russian']);
     }
 
     public function byActive($active): UserQuery

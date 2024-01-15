@@ -15,7 +15,7 @@ final class ClientQuery extends Builder
 
     public function byName($value): ClientQuery
     {
-        return $this->whereFullText('name', $value);
+        return $this->whereFullText('name', $value, ['language' => 'russian']);
     }
 
     public function bySearch($value): ClientQuery
