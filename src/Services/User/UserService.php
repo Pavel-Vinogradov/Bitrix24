@@ -31,7 +31,7 @@ final class UserService implements UserServiceInterface
         }
 
         try {
-            $user = User::firstOrCreate(
+            $user = User::updateOrCreate(
                 ['bitrix_id' => $userData->getId()],
                 [
                     'name' => $userData->getName(),

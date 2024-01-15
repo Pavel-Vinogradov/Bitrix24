@@ -18,7 +18,7 @@ final class UserDataRepository implements UserDataRepositoryInterface
      */
     public function getById(int $value): ?UserData
     {
-        if ($user = User::find($value)) {
+        if ($user = User::firstWhere('bitrix_id',$value)) {
             return new UserData(
                 id: $user->getId(),
                 name: $user->getName(),
