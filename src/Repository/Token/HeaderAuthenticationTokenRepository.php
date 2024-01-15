@@ -48,11 +48,14 @@ final class HeaderAuthenticationTokenRepository implements AuthenticationTokenRe
 
     public function setAccessToken(string $value): string
     {
+        $this->request->headers->set(HeaderEnum::X_ACCESS_TOKEN->value, $value);
         return $this->accessToken = $value;
     }
 
     public function setRefreshToken(string $value): string
     {
+        $this->request->headers->set(HeaderEnum::X_REFRESH_TOKEN->value, $value);
+
         return $this->refreshToken = $value;
     }
 }
