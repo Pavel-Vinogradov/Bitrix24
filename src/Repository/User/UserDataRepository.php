@@ -35,7 +35,7 @@ final class UserDataRepository implements UserDataRepositoryInterface
     /**
      * @throws UnauthenticatedException
      */
-    public function search(string $query, array $additionalFilter = [], bool $isActive = null): array
+    public function search(string $query, array $additionalFilter = [], ?bool $isActive = null): array
     {
         $users = User::byName($query)
             ->byActive($isActive)
