@@ -24,8 +24,8 @@ final class UserDataRepository implements UserDataRepositoryInterface
                 name: $user->getName(),
                 email: $user->getEmail(),
                 phone: $user->getPhone(),
-                work_position: $user->getWorkPosition(),
-                is_active: $user->getIsActive(),
+                workPosition: $user->getWorkPosition(),
+                isActive: $user->getIsActive(),
             );
         }
 
@@ -47,13 +47,12 @@ final class UserDataRepository implements UserDataRepositoryInterface
                 name: $user->getName(),
                 email: $user->getEmail(),
                 phone: $user->getPhone(),
-                work_position: $user->getWorkPosition(),
-                is_active: $user->getIsActive(),
+                workPosition: $user->getWorkPosition(),
+                isActive: $user->getIsActive(),
             ),
             $users
         );
-
-        if ($moreUsersToFetch = self::USER_SEARCH_LIMIT - count($users)) {
+         if ($moreUsersToFetch = self::USER_SEARCH_LIMIT - count($users)) {
             $bitrixUsers = array_slice(BitrixUserServer::userSearch($query, $isActive), 0, $moreUsersToFetch);
             $output = array_merge($output, $bitrixUsers);
         }

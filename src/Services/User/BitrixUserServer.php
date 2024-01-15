@@ -41,7 +41,7 @@ final class BitrixUserServer
             name: implode(' ', array_filter([$data['LAST_NAME'] ?? null, $data['NAME'] ?? null, $data['SECOND_NAME'] ?? null])),
             email: $data['EMAIL'] ?? null,
             phone: $data['PERSONAL_PHONE'] ?? $data['WORK_PHONE'] ?? null,
-            work_position: $data['WORK_POSITION'] ?? null
+            workPosition: $data['WORK_POSITION'] ?? null
         );
     }
 
@@ -77,7 +77,7 @@ final class BitrixUserServer
             name: implode(' ', array_filter([$row['LAST_NAME'] ?? null, $row['NAME'] ?? null, $row['SECOND_NAME'] ?? null])),
             email: $row['EMAIL'],
             phone: $row['WORK_PHONE'] ?? null,
-            work_position: $row['WORK_POSITION'] ?? null
+            workPosition: $row['WORK_POSITION'] ?? null
         ), $rows);
     }
 }

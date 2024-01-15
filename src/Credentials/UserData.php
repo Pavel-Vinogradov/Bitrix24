@@ -11,8 +11,8 @@ final class UserData
         private readonly string $name,
         private readonly ?string $email,
         private readonly ?string $phone,
-        private readonly ?string $work_position,
-        private readonly ?bool $is_active = true
+        private readonly ?string $workPosition,
+        private readonly ?bool $isActive = true
     ) {
     }
 
@@ -23,8 +23,8 @@ final class UserData
             'name' => $this->getName(),
             'email' => $this->getEmail(),
             'phone' => $this->getPhone(),
-            'work_position' => $this->getWorkPosition(),
-            'is_active' => $this->getIsActive(),
+            'workPosition' => $this->getWorkPosition(),
+            'isActive' => $this->getIsActive(),
         ];
     }
 
@@ -45,7 +45,7 @@ final class UserData
 
     public function getWorkPosition(): string
     {
-        return $this->work_position ?? '';
+        return $this->workPosition ?? '';
     }
 
     public function getPhone(): string
@@ -55,6 +55,6 @@ final class UserData
 
     public function getIsActive(): bool
     {
-        return $this->is_active ?? true;
+        return $this->isActive ?? true;
     }
 }
