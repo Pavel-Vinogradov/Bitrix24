@@ -38,6 +38,7 @@ final class UserService implements UserServiceInterface
             'phone' => $userDataFromRepo->getPhone(),
             'work_position' => $userDataFromRepo->getWorkPosition(),
             'is_active' => $userDataFromRepo->getIsActive(),
+            'is_bitrix24_user' => true
         ];
 
         try {
