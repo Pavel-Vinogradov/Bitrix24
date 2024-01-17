@@ -20,7 +20,7 @@ final class UserDataRepository implements UserDataRepositoryInterface
     {
         if ($user = User::firstWhere('bitrix_id', $value)) {
             return new UserData(
-                id: $user->getId(),
+                id: $user->bitrix_id,
                 name: $user->getName(),
                 email: $user->getEmail(),
                 phone: $user->getPhone(),
