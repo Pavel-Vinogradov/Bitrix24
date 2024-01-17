@@ -41,9 +41,9 @@ final class UserService implements UserServiceInterface
         ];
 
         try {
-            $user = (new User())->firstWhere('bitrix24_id', $userId);
+            $user = (new User())->firstWhere('bitrix_id', $userId);
             if ($user === null) {
-                $attributes['bitrix24_id'] = $userId;
+                $attributes['bitrix_id'] = $userId;
                 $user = (new User())->create($attributes);
             } else {
                 $user->fill($attributes)->save();
