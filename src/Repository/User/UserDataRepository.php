@@ -18,7 +18,7 @@ final class UserDataRepository implements UserDataRepositoryInterface
      */
     public function getById(int $value): ?UserData
     {
-        if ($user = User::firstWhere('bitrix_id',$value)) {
+        if ($user = User::firstWhere('bitrix_id', $value)) {
             return new UserData(
                 id: $user->getId(),
                 name: $user->getName(),
@@ -52,7 +52,7 @@ final class UserDataRepository implements UserDataRepositoryInterface
             ),
             $users
         );
-         if ($moreUsersToFetch = self::USER_SEARCH_LIMIT - count($users)) {
+        if ($moreUsersToFetch = self::USER_SEARCH_LIMIT - count($users)) {
             $bitrixUsers = array_slice(BitrixUserServer::userSearch($query, $isActive), 0, $moreUsersToFetch);
             $output = array_merge($output, $bitrixUsers);
         }
