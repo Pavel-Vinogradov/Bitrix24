@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tizix\Bitrix24Laravel\Model\User\User;
 use Tizix\Bitrix24Laravel\Repository\User\UserDataRepositoryInterface;
+use RuntimeException;
 
 final class UserService implements UserServiceInterface
 {
@@ -15,8 +16,7 @@ final class UserService implements UserServiceInterface
 
     public function __construct(
         UserDataRepositoryInterface $userDataRepository
-    )
-    {
+    ) {
         $this->userDataRepository = $userDataRepository;
     }
 
@@ -31,7 +31,7 @@ final class UserService implements UserServiceInterface
         }
 
         try {
-            $user = User::updateOrCreate(
+            $user = User::firstOrCreate(
                 ['bitrix_id' => $userData->getId()],
                 [
                     'name' => $userData->getName(),
@@ -43,7 +43,7 @@ final class UserService implements UserServiceInterface
                 ]
             );
         } catch (Exception $e) {
-            throw new \RuntimeException('Ошибка сохранения пользователя: ' . $e->getMessage());
+            throw new RuntimeException('Ошибка сохранения пользователя: ' . $e->getMessage());
         }
 
         return $user;
