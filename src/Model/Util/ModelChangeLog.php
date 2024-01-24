@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $new_value
  * @property Carbon|string $created_at
  */
-final class ModelChangeLog extends Model
+class ModelChangeLog extends Model
 {
     protected $table = 'util.model_change_log';
 
